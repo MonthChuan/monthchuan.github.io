@@ -550,6 +550,15 @@ $('.modal').on('hidden.bs.modal', function () {
 
 
 
+ <div class="my-survery margint10" id="ptgxbysjyzk_survey" style="display: block;">
+
+
+
+
+
+
+
+
     <style>
         .zy-content li{margin-right: 40px;width: auto;}
         .zy-content li label {width: auto;}
@@ -1385,6 +1394,44 @@ $('.modal').on('hidden.bs.modal', function () {
 
 
     </div>
+    <script>
+        $(function(){
+            $('body').on('change',':radio[name]',function(){
+                var name  = $(this).attr('name'),$other  = $(this).parent().siblings();
+                $other.find('i.unchecked').show();
+                $other.find('i.checked').hide();
+                $(this).next('label').find('i.unchecked').hide();
+                $(this).next('label').find('i.checked').show();
+            })
+
+            $("#ptgxbysjyzk_survey").show();
+            $("#surveyPicInfo").show();
+
+            $("#xxjygzpjForm").submit(function(){
+                $(this).ajaxSubmit({
+                    success:function(dataValue) {
+                        $("#ptgxbysjyzk_survey").html(dataValue);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) 
+                    {
+                        alert("数据提交失败！");
+                    }
+                });
+                return false;
+            });
+            $("#submitButton").click(function(){
+                var n = $(".zyrbox").length;
+                var len = $('.zyrbox input[type="radio"]:checked').length;
+                if ( len<n ) {
+                    alert('请完成问卷后再提交，谢谢！');
+                    return false;
+                }
+                $("#xxjygzpjForm").submit();
+            });
+        });
+    </script>
+
+</div>
     <script>
         $(function(){
             $('body').on('change',':radio[name]',function(){
